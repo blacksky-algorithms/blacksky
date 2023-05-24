@@ -2,8 +2,7 @@ import { InvalidRequestError } from '@atproto/xrpc-server'
 import { QueryParams } from '../lexicon/types/app/bsky/feed/getFeedSkeleton'
 import { AppContext } from '../config'
 
-// max 15 chars
-export const shortname = 'whats-alf'
+export const uri = 'at://did:plc:w4xbfzo7kqfes5zb7r6qv3rw/app.bsky.feed.generator/blacksky'
 
 export const handler = async (ctx: AppContext, params: QueryParams) => {
   let builder = ctx.db

@@ -2,28 +2,52 @@ import {
   OutputSchema as RepoEvent,
   isCommit,
 } from './lexicon/types/com/atproto/sync/subscribeRepos'
+import {
+  OutputSchema as ThreadPost
+} from './lexicon/types/app/bsky/feed/getPostThread'
 import { FirehoseSubscriptionBase, getOpsByType } from './util/subscription'
+import { AtpAgent, BlobRef } from '@atproto/api'
+import dotenv from 'dotenv'
+
+function parseReplies(threadPost) {
+  let identifiers: any[] = [];
+  if (threadPost.replies) {
+    identifiers = [...new Set(threadPost.replies
+      .map((reply) => {
+        return parseReplies(reply)
+      }))]
+  }
+  identifiers.push(threadPost.post.author.did)
+  return identifiers.flat()
+}
 
 export class FirehoseSubscription extends FirehoseSubscriptionBase {
   async handleEvent(evt: RepoEvent) {
     if (!isCommit(evt)) return
-    const ops = await getOpsByType(evt)
+    dotenv.config()
 
-    // This logs the text of every post off the firehose.
-    // Just for fun :)
-    // Delete before actually using
-    for (const post of ops.posts.creates) {
-      console.log(post.record.text)
-    }
+    const handle = process.env.IDENTIFIER ?? ''
+    const password = process.env.PASSWORD ?? ''
+    const uri = process.env.BLACKSKYTHREAD ?? ''
+
+    const agent = new AtpAgent({ service: 'https://bsky.social' })
+    await agent.login({ identifier: handle, password })
+
+    const blackskyThread = await agent.api.app.bsky.feed.getPostThread({uri})
+    const blacksky = new Set(parseReplies(blackskyThread.data.thread))
+
+    const ops = await getOpsByType(evt)
 
     const postsToDelete = ops.posts.deletes.map((del) => del.uri)
     const postsToCreate = ops.posts.creates
       .filter((create) => {
-        // only alf-related posts
-        return create.record.text.toLowerCase().includes('alf')
+        // Filter for authors from the blacksky thread
+        return blacksky.has(create.author)
       })
       .map((create) => {
-        // map alf-related posts to a db row
+        // Create Blacksky posts in db
+        console.log(`Blacksky author ${create.author}!`)
+        console.log(create)
         return {
           uri: create.uri,
           cid: create.cid,

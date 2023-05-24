@@ -85,7 +85,7 @@ export const getOpsByType = async (evt: Commit): Promise<OperationsByType> => {
   for (const op of evt.ops) {
     const uri = `at://${evt.repo}/${op.path}`
     const [collection] = op.path.split('/')
-
+    
     if (op.action === 'update') continue // updates not supported yet
 
     if (op.action === 'create') {
