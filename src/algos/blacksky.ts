@@ -1,8 +1,10 @@
+import dotenv from 'dotenv'
 import { InvalidRequestError } from '@atproto/xrpc-server'
 import { QueryParams } from '../lexicon/types/app/bsky/feed/getFeedSkeleton'
 import { AppContext } from '../config'
 
-export const uri = 'at://did:plc:w4xbfzo7kqfes5zb7r6qv3rw/app.bsky.feed.generator/blacksky'
+dotenv.config()
+export const uri = `at://did:web:${process.env.FEEDGEN_HOSTNAME}/app.bsky.feed.generator/blacksky`
 
 export const handler = async (ctx: AppContext, params: QueryParams) => {
   let builder = ctx.db
