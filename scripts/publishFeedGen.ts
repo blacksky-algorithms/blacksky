@@ -8,11 +8,11 @@ const run = async () => {
 
   // YOUR bluesky handle
   // Ex: user.bsky.social
-  const handle = process.env.IDENTIFIER
+  const handle = process.env.IDENTIFIER ?? ''
 
   // YOUR bluesky password, or preferably an App Password (found in your client settings)
   // Ex: abcd-1234-efgh-5678
-  const password = process.env.PASSWORD
+  const password = process.env.PASSWORD ?? ''
 
   // A short name for the record that will show in urls
   // Lowercase with no spaces.
