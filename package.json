@@ -9,7 +9,7 @@
   "scripts": {
     "publishFeed": "ts-node scripts/publishFeedGen.ts",
     "start": "ts-node src/index.ts",
-    "build": "tsc"
+    "build": "mkdir tmp && tsc"
   },
   "dependencies": {
     "@atproto/api": "^0.3.7",
