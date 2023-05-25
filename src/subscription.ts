@@ -36,6 +36,16 @@ export class FirehoseSubscription extends FirehoseSubscriptionBase {
     const blackskyThread = await agent.api.app.bsky.feed.getPostThread({uri})
     const blacksky = new Set(parseReplies(blackskyThread.data.thread))
 
+    // TO DO: Maybe replace with an API
+    const hardcoded_adds = ['did:plc:j4bko7yvzthmufkoxtzcoauh','did:plc:l4g436iw6lmd7ywrqz4lko5w','did:plc:mnkuzinn3jjjytuwdlw265ql','did:plc:f7gdbr6mkxcukdnjd7vdl4q4','did:plc:f4ctxz5nwkyfedkfvyxbtpgq','did:plc:7o55wjsyg2ylsmlr5to6gb67','did:plc:xum72mip7ti5niwqbgpvaqn4','did:plc:elelkrcnhv3adswxrkqkdt5k','did:plc:x4dmyp6bfmu3mshhx3fi4ko5','did:plc:m3ysxi4vufhxrg7syo55pt6r','did:plc:hxo5ss5y5p5wrhbxujcvru7w']
+    const hardcoded_removes = ['did:plc:buofnbcavecxm3kr6x5npusi']
+    for (let add of hardcoded_adds) {
+      blacksky.add(add)
+    }
+    for (let rm of hardcoded_removes) {
+      blacksky.delete(rm)
+    }
+
     const ops = await getOpsByType(evt)
 
     const postsToDelete = ops.posts.deletes.map((del) => del.uri)
