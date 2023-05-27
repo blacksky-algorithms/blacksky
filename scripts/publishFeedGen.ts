@@ -25,7 +25,7 @@ const run = async () => {
 
   // (Optional) A description of your feed
   // Ex: Top trending content from the whole network
-  const description = 'Posts from the Black users of Bluesky, based on the original thread (https://bsky.app/profile/did:plc:xgjcudwc5yk4z2uex5v6e7bl/post/3jtypsmfaoh2x)'
+  const description = 'Posts from the Black users of Bluesky. Use #Blacksky, ask to be added, or reply to the original thread (https://bsky.app/profile/did:plc:xgjcudwc5yk4z2uex5v6e7bl/post/3jtypsmfaoh2x). Open Source https://github.com/rudyfraser/blacksky/blob/6ed148f4f93426b00cae48eca50dfabcea8ce3f8/src/subscription.ts'
 
   // (Optional) The path to an image to be used as your feed's avatar
   // Ex: ~/path/to/avatar.jpeg
