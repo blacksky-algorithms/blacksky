@@ -14,7 +14,17 @@ export class FirehoseSubscription extends FirehoseSubscriptionBase {
     const postsToCreate = ops.posts.creates
       .filter((create) => {
         // Filter for authors from the blacksky thread
-        return blacksky.has(create.author)
+        let isBlackSkyAuthor = blacksky.has(create.author)
+
+        // Filter for posts that include the #blacksky hashtag
+        let hashtags: any[] = []
+        create?.record?.text?.toLowerCase()
+          ?.match(/#[^\s#\.\;]*/gmi)
+          ?.map((hashtag) => {
+            hashtags.push(hashtag)
+          })
+
+        return isBlackSkyAuthor || hashtags.includes('#blacksky')
       })
       .map((create) => {
         // Create Blacksky posts in db
