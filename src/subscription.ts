@@ -24,7 +24,7 @@ export class FirehoseSubscription extends FirehoseSubscriptionBase {
             hashtags.push(hashtag)
           })
 
-        return isBlackSkyAuthor || hashtags.includes('#blacksky')
+        return isBlackSkyAuthor || hashtags.includes('#blacksky') || hashtags.includes('#blacktechsky')
       })
       .map((create) => {
         // Create Blacksky posts in db
