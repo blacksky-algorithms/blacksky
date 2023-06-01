@@ -77,7 +77,7 @@ export abstract class FirehoseSubscriptionBase {
       blacksky.delete(rm)
     }
 
-    console.log(`👨🏿‍💻 ${blacksky.length} individuals in the #BlackSky skyline!`)
+    console.log(`👨🏿‍💻 ${blacksky.size} individuals in the #BlackSky skyline!`)
     for await (const evt of this.sub) {
       try {
         await this.handleEvent(evt, blacksky)
