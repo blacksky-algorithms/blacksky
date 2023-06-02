@@ -9,10 +9,18 @@ export class FirehoseSubscription extends FirehoseSubscriptionBase {
     if (!isCommit(evt)) return
 
     const ops = await getOpsByType(evt)
+    const hellthreadRoots = new Set<string>(['bafyreigxvsmbhdenvzaklcfnovbsjc542cu5pjmpqyyc64mdtqwsyimlvi'])
 
     const postsToDelete = ops.posts.deletes.map((del) => del.uri)
     const postsToCreate = ops.posts.creates
       .filter((create) => {
+        // Filter out any posts from Hellthread
+        let reply;
+        if (create?.record?.hasOwnProperty('reply')) {
+          ({record: {reply}} = create);
+        }
+        let isHellthread = hellthreadRoots.has(reply?.root?.cid)
+
         // Filter for authors from the blacksky thread
         let isBlackSkyAuthor = blacksky.has(create.author)
 
@@ -24,7 +32,7 @@ export class FirehoseSubscription extends FirehoseSubscriptionBase {
             hashtags.push(hashtag)
           })
 
-        return isBlackSkyAuthor || hashtags.includes('#blacksky') || hashtags.includes('#blacktechsky')
+        return (isBlackSkyAuthor || hashtags.includes('#blacksky') || hashtags.includes('#blacktechsky')) && !isHellthread
       })
       .map((create) => {
         // Create Blacksky posts in db
