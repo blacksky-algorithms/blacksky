@@ -1,4 +1,3 @@
-// TO DO: Maybe replace with an API
 export const DID_ADDITIONS = [
   'did:plc:j4bko7yvzthmufkoxtzcoauh',
   'did:plc:l4g436iw6lmd7ywrqz4lko5w',

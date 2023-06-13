@@ -68,6 +68,7 @@ export abstract class FirehoseSubscriptionBase {
     const blackskyThread = await agent.api.app.bsky.feed.getPostThread({uri})
     const blacksky = new Set(parseReplies(blackskyThread.data.thread))
 
+    // TO DO: Maybe replace with an API
     for (let add of DID_ADDITIONS) {
       blacksky.add(add)
     }
