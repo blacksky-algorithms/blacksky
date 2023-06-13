@@ -16,7 +16,7 @@ import {
 } from '../lexicon/types/app/bsky/feed/getPostThread'
 import { Database } from '../db'
 import { AtpAgent } from '@atproto/api'
-import { hardcoded_adds, hardcoded_removes } from '../membership'
+import { DID_ADDITIONS, DID_REMOVALS } from '../membership'
 import dotenv from 'dotenv'
 
 function parseReplies(threadPost) {
@@ -68,10 +68,10 @@ export abstract class FirehoseSubscriptionBase {
     const blackskyThread = await agent.api.app.bsky.feed.getPostThread({uri})
     const blacksky = new Set(parseReplies(blackskyThread.data.thread))
 
-    for (let add of hardcoded_adds) {
+    for (let add of DID_ADDITIONS) {
       blacksky.add(add)
     }
-    for (let rm of hardcoded_removes) {
+    for (let rm of DID_REMOVALS) {
       blacksky.delete(rm)
     }
 
