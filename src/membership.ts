@@ -344,6 +344,16 @@ export const DID_ADDITIONS = [
   'did:plc:vl63r7iv2q3isc42pp7bwdjb',
   'did:plc:7abxrjomf2fdimixnxhqjnbw',
   'did:plc:bocebke6k2dd44qvvgpesflz',
+  'did:plc:h3lbzrp2qum5nyzpeq6anmty',
+  'did:plc:fcbhrk4db2ct3k5l6yo44kv2',
+  'did:plc:tne4x6uotoief6t5cildh75l',
+  'did:plc:7epjrai2vqboodjwiz3ihqwh',
+  'did:plc:uwixawamap65w3yscbgw23ij',
+  'did:plc:ftqa7dkzl2bcbelsswanaine',
+  'did:plc:udbveo4lmfwrex43uejuzdao',
+  'did:plc:cgyprus7zkqsrnvhmmfzt6q6',
+  'did:plc:7dwvp7aizyk7yibje7jijhlr',
+  'did:plc:u7ezm26erpz744c6hisqhi6d',
 ]
 
 export const DID_REMOVALS = [
@@ -354,4 +364,5 @@ export const DID_REMOVALS = [
   'did:plc:5cn7tila5pqvqk7jbkgfz6hd',
   'did:plc:vt2iihswfztajz4xme6w4hiy',
   'did:plc:k5f642ejcpths5dehw7shm5t',
+  'did:plc:sgjdd33jxtlcswz74f2khipx',
 ]
