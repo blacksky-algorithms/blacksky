@@ -54,8 +54,9 @@ export abstract class FirehoseSubscriptionBase {
 
   abstract handleEvent(evt: RepoEvent, blacksky): Promise<void>
 
-  async run() {
-    dotenv.config()
+  async run(subscriptionReconnectDelay: number) {
+    try {
+      dotenv.config()
 
     const handle = process.env.IDENTIFIER ?? ''
     const password = process.env.PASSWORD ?? ''
@@ -79,13 +80,17 @@ export abstract class FirehoseSubscriptionBase {
     for await (const evt of this.sub) {
       try {
         await this.handleEvent(evt, blacksky)
-      } catch (err) {
-        console.error('repo subscription could not handle message', err)
+        } catch (err) {
+          console.error('repo subscription could not handle message', err)
+        }
+        // update stored cursor every 20 events or so
+        if (isCommit(evt) && evt.seq % 20 === 0) {
+          await this.updateCursor(evt.seq)
+        }
       }
-      // update stored cursor every 20 events or so
-      if (isCommit(evt) && evt.seq % 20 === 0) {
-        await this.updateCursor(evt.seq)
-      }
+    } catch (err) {
+      console.error('repo subscription errored', err)
+      setTimeout(() => this.run(subscriptionReconnectDelay), subscriptionReconnectDelay)
     }
   }
 

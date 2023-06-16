@@ -7,17 +7,22 @@ const run = async () => {
   const serviceDid =
     maybeStr(process.env.FEEDGEN_SERVICE_DID) ?? `did:web:${hostname}`
   const server = FeedGenerator.create({
-    port: maybeInt(process.env.PORT) ?? 3000,
+    port: maybeInt(process.env.FEEDGEN_PORT) ?? 3000,
+    listenhost: maybeStr(process.env.FEEDGEN_LISTENHOST) ?? 'localhost',
     dblocation: maybeStr(process.env.FEEDGEN_DB_LOCATION) ?? ':memory:',
     subscriptionEndpoint:
       maybeStr(process.env.FEEDGEN_SUBSCRIPTION_ENDPOINT) ??
       'wss://bsky.social',
+    publisherDid:
+      maybeStr(process.env.FEEDGEN_PUBLISHER_DID) ?? 'did:example:alice',
+    subscriptionReconnectDelay:
+      maybeInt(process.env.FEEDGEN_SUBSCRIPTION_RECONNECT_DELAY) ?? 3000,
     hostname,
     serviceDid,
   })
   await server.start()
   console.log(
-    `🤖 running feed generator at http://localhost:${server.cfg.port}`,
+    `🤖 running feed generator at http://${server.cfg.listenhost}:${server.cfg.port}`,
   )
 }
 
