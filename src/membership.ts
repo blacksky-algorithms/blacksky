@@ -895,6 +895,7 @@ export const DID_ADDITIONS = [
   'did:plc:6qtwoqhpuxe33db62t2vlnq5',
   'did:plc:4ympr3xzknchtmp3xlbddrzx',
   'did:plc:yqrra37v6bpf3xpchv2hnr7k',
+  'did:plc:3jfsgkf4g5zdnyadrgydqjb3',
   // 'did:plc:bnmuj3kdepypfc6uv3ilzfbz', Asked to be removed after
 ]
 
