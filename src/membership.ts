@@ -902,6 +902,16 @@ export const DID_ADDITIONS = [
   'did:plc:klaoteiyxgbupn5ffnha3nz4',
   'did:plc:4xvqwwjgrang3lbhqbpx2zzw',
   'did:plc:6vrf44pabqhagogoibjbc42y',
+  'did:plc:tjotjvnrfkagrgmqmzwpvpli',
+  'did:plc:nlttrkkqletz4pwf26d2meny',
+  'did:plc:k7hubsevwpjhn3exgn2vzsjn',
+  'did:plc:tls7l6dgsalsbmxd4hdmnfi3',
+  'did:plc:6c5jxrgpsgyeo5eb2jiw4bf2',
+  'did:plc:2bmeojjohukt3mg4dwqxh7hm',
+  'did:plc:bdgqmij7sk2mpaz5esm7m4yw',
+  'did:plc:apjfhi5brtz2bhqas6pgmx7w',
+  'did:plc:k6mqqc65u2e4k5emp42gtj56',
+  'did:plc:mmj6wxsrynicyjxvxeom6x3h',
   // 'did:plc:bnmuj3kdepypfc6uv3ilzfbz', Asked to be removed after
 ]
 
