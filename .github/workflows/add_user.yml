@@ -1,0 +1,31 @@
+name: Add User
+
+on:
+  workflow_dispatch:
+    inputs:
+      did_or_handle:
+        description: "DID (did:plc:) or Handle"
+        required: true
+
+jobs:
+  add_user:
+    runs-on: ubuntu-latest
+    name: Add user
+    permissions: write-all
+    steps:
+      - uses: actions/checkout@v3
+      - name: Add user
+        env:
+          DID_OR_HANDLE: ${{ inputs.did_or_handle }}
+        run: |
+          ./scripts/add_user.py $DID_OR_HANDLE
+          if [ -n "$(git status -s src/membership.ts | grep M)" ]; then
+            echo "Pushing change"
+            git config --global user.name "GitHub Actions"
+            git config --global user.email "github-actions@example.com"
+            git add src/membership.ts
+            git commit -am "Add user"
+            git push
+          else
+            echo "No change."
+          fi
